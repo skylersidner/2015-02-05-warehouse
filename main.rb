@@ -1,12 +1,15 @@
+require 'pry'
 require 'sqlite3'
 require_relative 'db_setup.rb'
-require_relative "categories"
-require_relative "locations"
-require_relative "products"
-require_relative "module"
-include Manage
+require_relative 'category.rb'
+require_relative 'location.rb'
+require_relative 'product.rb'
+# require_relative "module"
+# include Manage
+binding.pry
 
-
+#CLI Menu to facilitate the user interface...
+=begin
 puts "-" * 40
 puts "Welcome to the Fantastic Books Warehouse."
 puts "Choose an action from the list below:"
@@ -17,7 +20,7 @@ puts
 puts "-" * 40
 puts "PRODUCT MANAGEMENT"
 puts "1. Add a new product"
-puts "2. Edit a product (e.g., change product category, update quantity, etc.)"
+puts "2. Edit a product (e.g., change product category, update quantity, change location, etc.)"
 puts "3. Delete a product"
 puts "4. Show products (e.g., by title, by category, or by location, etc.)"
 puts "-" * 40
@@ -64,11 +67,4 @@ elsif users_choice == 4
 elsif users_choice == 5 
   puts "Please come again!"
 end
-
-
-
-
-binding.pry
-
-
-
+=end
