@@ -17,11 +17,11 @@ class Location
   end
   
   def self.delete(id_to_remove)
-    x = DATABASE.execute("SELECT location_id FROM products WHERE id = #{id_to_remove}")
+    x = DATABASE.execute("SELECT location_id FROM products WHERE location_id = #{id_to_remove}")
     if x.length == 0
       DATABASE.execute("DELETE FROM locations WHERE id = #{id_to_remove}")
     else
-      DATABASE.execute("SELECT city FROM locations WHERE id = #{id_to_remove}")
+      DATABASE.execute("SELECT * FROM products WHERE location_id = #{id_to_remove}")
     end
   end
 

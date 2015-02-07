@@ -25,7 +25,7 @@ class Category
   
   def self.delete(id_to_remove)
     #taking one record in the db and deleting it
-    x = DATABASE.execute("SELECT category_id FROM products WHERE id = #{id_to_remove}")
+    x = DATABASE.execute("SELECT category_id FROM products WHERE category_id = #{id_to_remove}")
     if x.length == 0
       DATABASE.execute("DELETE FROM categories WHERE id = #{id_to_remove}")
     else
