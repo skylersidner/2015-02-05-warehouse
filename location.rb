@@ -3,8 +3,8 @@ class Location
   attr_accessor :city
   
   def initialize(options)
-    @id = options[:id]
-    @city = options[:city]
+    @id = options["id"]
+    @city = options["city"]
   end
 
   def insert
@@ -16,12 +16,12 @@ class Location
     DATABASE.execute("SELECT * FROM locations")
   end
   
-  def self.delete(city)
-    x = DATABASE.execute(SELECT city FROM products WHERE location_id = '#{city}')
+  def self.delete(id_to_remove)
+    x = DATABASE.execute("SELECT location_id FROM products WHERE id = #{id_to_remove}")
     if x.length == 0
-      DATABASE.execute(DELETE FROM locations WHERE city = '#{city}')
+      DATABASE.execute("DELETE FROM locations WHERE id = #{id_to_remove}")
     else
-      DATABASE.execute(SELECT city FROM locations WHERE location_id = '#{city}')
+      DATABASE.execute("SELECT city FROM locations WHERE id = #{id_to_remove}")
     end
   end
 

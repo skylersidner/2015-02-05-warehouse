@@ -5,8 +5,8 @@ class Category
   attr_accessor :genre
   
   def initialize(options)
-    @id = options[:id]
-    @genre = options[:genre]
+    @id = options["id"]
+    @genre = options["genre"]
   end
   
   def insert    #insert a NEW record into db
@@ -23,14 +23,13 @@ class Category
     DATABASE.execute("SELECT * FROM categories")
   end
   
-  def self.delete(genre)
+  def self.delete(id_to_remove)
     #taking one record in the db and deleting it
-    x = DATABASE.execute(SELECT genre FROM products WHERE category_id = '#{genre}')
-    if #any product assigned to this
-      x.length == 0
-      DATABASE.execute(DELETE FROM categories WHERE genre = '#{genre}')
+    x = DATABASE.execute("SELECT category_id FROM products WHERE id = #{id_to_remove}")
+    if x.length == 0
+      DATABASE.execute("DELETE FROM categories WHERE id = #{id_to_remove}")
     else
-      DATABASE.execute(SELECT genre FROM products WHERE category_id = '#{genre}')
+      DATABASE.execute("SELECT * FROM products WHERE category_id = #{id_to_remove}")
     end
   end
   
