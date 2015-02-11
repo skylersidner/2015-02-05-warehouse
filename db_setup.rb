@@ -26,3 +26,5 @@ DATABASE.execute("CREATE TABLE IF NOT EXISTS products
                  FOREIGN KEY (location_id) REFERENCES locations(id))")
 
 DATABASE.results_as_hash = true
+DATABASE.execute("SELECT * FROM products INNER JOIN categories ON Products.category_id = Categories.id")
+DATABASE.execute("SELECT * FROM products INNER JOIN locations ON Products.location_id = Locations.id")

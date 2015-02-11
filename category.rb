@@ -1,6 +1,18 @@
+#---------------------------------------------------------
+# Class: Category
+# Facilitates management of the categories (genres) assigned to our products.
+#
+# Attributes:
+# @id     - Integer (Primary Key) in categories table (automatically assigned)
+# @genre  - String: the gener name (e.g., 'thriller')
+#
+# Public Methods:
+# #insert
+# .all  
+# .delete 
+#---------------------------------------------------------
 class Category
-  # include Manage
-  
+  # include Driver
   attr_reader :id
   attr_accessor :genre
   
@@ -8,21 +20,50 @@ class Category
     @id = options["id"]
     @genre = options["genre"]
   end
-  
-  def insert    #insert a NEW record into db
-    # If you were doing from the command line:
-    # INSERT INTO students (name) VALUES ('Andrew');
-    #Run in terminal Question.all
+
+  #---------------------------------------------------------
+    # Public: #insert
+    # Inserts new instantiation to the database
+    #
+    # Parameter: None
+    #
+    # Returns: None
+    #
+    # State Changes: None
+  #---------------------------------------------------------
+  def insert 
     
-    # YOU MUST USE SINGLE QUOTES AROUND THE STRING INTERPOLATION:
     DATABASE.execute("INSERT INTO categories (genre) VALUES ('#{@genre}')")
     @id = DATABASE.last_insert_row_id     # will return the value of the row id
   end
-  
+
+  #---------------------------------------------------------
+    # Public: .all
+    # Displays all genres
+    #
+    # Parameter: None
+    #
+    # Returns: None
+    #
+    # State Changes: None
+  #---------------------------------------------------------
   def self.all
-    DATABASE.execute("SELECT * FROM categories")
+    x = DATABASE.execute("SELECT * FROM categories")
+    x.each do |x|
+        puts "#{x[0]}: #{x[1]}"
+      end
   end
-  
+
+  #---------------------------------------------------------
+    # Public: .delete
+    # Deletes a single genre if no products are assigned to it
+    #
+    # Parameter: location_id
+    #
+    # Returns: None
+    #
+    # State Changes: Deletes genre
+  #---------------------------------------------------------
   def self.delete(id_to_remove)
     #taking one record in the db and deleting it
     x = DATABASE.execute("SELECT category_id FROM products WHERE category_id = #{id_to_remove}")

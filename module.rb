@@ -6,7 +6,7 @@
 
 module Manage 
   
-  def self.all                                                # display / fetch
+  def self.all                              # display / fetch
     # SELECT * FROM question;   Run in terminal Question.all
     # I want this to return all the items in a table
     # but I want them to be formatted nicely
@@ -14,7 +14,28 @@ module Manage
     DATABASE.execute("SELECT * FROM ***** table_name *****")
   end
 
-  def insert
+
+  # This used to be called sync
+  def save (previously called sync - see below)
+      # instance_variables # = [:@name, :@age, :@hometown]
+      attributes = []
+
+      instance_variable.each do |i|
+        attributes << i.to_s.delete("@")
+      end
+
+      attributes.each do |a|
+        value = self.send(a)
+        if value.is_a?(Integer)
+          query_components_array << "#{a} = #{self.send(a)}"
+        else
+          query_components_array << "#{a} = '#{self.send(a)}'"
+        end
+
+        q = query_components_array.join(", ")
+
+      DATABASE.execute("UPDATE students SET #{q} WHERE id = #{@id}")
+    
   end
 
   def edit
@@ -24,11 +45,18 @@ module Manage
     DATABASE.execute("DELETE ***** FROM ***** students *****")
   end
 
+  # Public: #insert
+  # Adds the object to the table and assigns an ID
+  #
+  #Returns: Integer: The table assigned ID
 
-  def save
+  # Take object and insert it into the table
+  def insert
     # INSERT INTO question (student_id, question) VALUES ((#{@student_id}, '#{question}'))
     # INSERT INTO question (student_id, question) VALUES (4, "What color is the rainbow?");
-    DATABASE.execute("INSERT INTO question (student_id, question) VALUES (#{@student_id},                     '#{@question}')")
+    # INSERT will add a new row and add a new id
+    DATABASE.execute("INSERT INTO students (name, age, hometown) VALUES ('#{@name}',                     #{@age}, '#{@hometown}')")
+    @id = DATABASE.last_insert_row
   end
   
 end  

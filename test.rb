@@ -17,6 +17,39 @@ class WarehouseTest < Minitest::Test
 
   # assert equal(expected, actual)
 
+  def test_product_creation
+    new_product = Product.new({'isbn' => 15679, 'title' => 'A Good Book', 'author' => 'Me', 'description' => 'trade paperback', 'cost' => 1.99, 'price' => 5.99, 'quantity' => 10, 'category_id' => 3, 'location_id' => 2})
+    x = new_product.insert
+    assert_kind_of(Integer, x)
+    # DATABASE.execute("DELETE FROM products WHERE author = 'Me'")
+  end
+
+  def test_product_deletion
+    new_product = Product.new({'isbn' => 15679, 'title' => 'A Super Good Book', 'author' => 'Me', 'description' => 'trade paperback', 'cost' => 1.99, 'price' => 5.99, 'quantity' => 10, 'category_id' => 3, 'location_id' => 2})
+    x = new_product.insert
+    array = Product.delete(new_product.title)
+    assert_equal(0, array.length)
+  end
+
+
+  # def test_product_save_sync_to_db
+  #   x = Product.where_title_is("To Kill a Mockingbird")
+  #   x.cost = 100.99
+  #   x.save
+  #   # y = DATABASE.execute("SELECT cost FROM products WHERE title = 'To Kill a Mockingbird'")
+  #   y = Product.where_title_is("To Kill a Mockingbird")
+  #   assert_equal(100.99, y.cost)
+  # end
+
+  # def test_product_search_by_author
+  #   x = Product.where_author_is("Harper Lee")
+  #   x.cost = 100.99
+  #   x.save
+  #   assert_equal()
+  # end
+
+
+
   def test_location_creation
     new_location = Location.new({'city' => "Orlando FL"})
     x = new_location.insert
@@ -55,35 +88,16 @@ class WarehouseTest < Minitest::Test
     assert_empty([], category)
   end
 
+  def test_list_all_products
+    y = DATABASE.execute("SELECT * FROM products")
+    assert_equal(y.length, Product.all.length)
+  end
+
+  # def test_all_products_single_genre
+  #   x = DATABASE.execute("SELECT id from categories WHERE genre = 'thriller'")
+  #   y = DATABASE.execute("SELECT * FROM products WHERE category_id = #{x}")
+  #   z = Product.category("thriller")
+  #   assert_equal(y.length, x.length)
+  # end
 
 end
-# binding.pry
-
-=begin
-  def test_student_has_questions
-    student = Student.new({name: "Blake"})
-    x = Question.new({student_id: student.id, question: "What up?"})
-      # student.questions.length > 0
-      # refute_equal([], student.questions)
-    assert_equal(1, student.questions.length)
-  end
-
-  def test_student_creation
-    student = Student.new({name: "Jenny"})
-    x = DATABASE.execute("SELECT name FROM students WHERE id =    
-                        #{student.id}")
-    added_student = x[0]
-    assert_equal(1, x.length)
-    assert_equal("Jenny", added_student["name"])
-  end
-
-  def test_list_all_students
-    DATABASE.execute("DELETE FROM students")
-    s1 = Student.new({name: "Liz"})
-    s2 = Student.new({name: "Barb"})
-    assert_equal(2, Student.all.length)
-    # ("SELECT * FROM question WHERE student_id = #{@id}")
-  end
-
-end
-=end
