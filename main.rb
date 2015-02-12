@@ -24,30 +24,30 @@ get "/locations" do
 end
 
 get "/l_create" do
-  erb :l_create
+  erb :"locations/l_create"
 end
 
 get "/c_create" do
-  erb :l_create
+  erb :"categories/c_create"
 end
 
 get "/p_new" do
-  erb :p_new
+  erb :"products/p_new"
 end
 
 get "/l_index" do
   @all = Location.all
-  erb :l_index
+  erb :"locations/l_index"
 end
 
 get "/c_index" do
   @all = Category.all
-  erb :c_index
+  erb :"categories/c_index"
 end
 
 get "/p_index" do
   @all = Product.all
-  erb :p_index
+  erb :"/products/p_index"
 end
 
 get "/p_confirm" do
@@ -60,14 +60,14 @@ get "/p_confirm" do
   @quantity     = params["quantity"]
   @category_id  = params["category_id"]
   @location_id  = params["location_id"]
-  erb :p_confirm
+  erb :"products/p_confirm"
 end
 
 get "/p_create" do
   @p = Product.new(params)
   @p.insert
   @all = [@p]
-  erb :p_create
+  erb :"products/p_create"
 end
 
 
