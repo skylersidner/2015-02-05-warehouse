@@ -1,5 +1,9 @@
 require 'pry'
 require 'sqlite3'
+
+require_relative 'class_module.rb'
+
+
 require_relative 'db_setup.rb'
 require_relative 'category.rb'
 require_relative 'location.rb'
@@ -24,9 +28,9 @@ get "/locations" do
 end
 
 
-get "/l_index" do
-  @all = Location.all
-  erb :"locations/l_index"
+get "/l_all" do
+  @all = Location.all("locations")
+  erb :"displays/l_display"
 end
 
 get "/l_new" do
@@ -46,9 +50,9 @@ get "/l_create" do
 end
 
 
-get "/c_index" do
-  @all = Category.all
-  erb :"categories/c_index"
+get "/c_all" do
+  @all = Category.all("categories")
+  erb :"displays/c_display"
 end
 
 get "/c_new" do
@@ -68,9 +72,9 @@ get "/c_create" do
 end
 
 
-get "/p_index" do
-  @all = Product.all
-  erb :"/products/p_index"
+get "/p_all" do
+  @all = Product.all("products")
+  erb :"displays/p_display"
 end
 
 get "/p_new" do
@@ -95,6 +99,17 @@ get "/p_create" do
   @p.insert
   @all = [@p]
   erb :"products/p_create"
+end
+
+get "/p_location" do
+  @all = Product.city
+  binding.pry
+  erb :"displays/p_display"
+end
+
+get "/p_category" do
+  @all = Product.genre
+  erb :"displays/p_display"
 end
 
 

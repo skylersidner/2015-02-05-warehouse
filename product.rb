@@ -30,6 +30,8 @@ class Product
   attr_reader :id
   attr_accessor :isbn, :title, :author, :description, :cost, :price, :quantity, :category_id, :location_id
 
+  extend Class_Methods
+
   def initialize(options)
     @id           = options["id"]
     @isbn         = options["isbn"]
@@ -94,16 +96,20 @@ class Product
   # Public: #city
   # "Translates" between the location_id and the actual name of the city
   #---------------------------------------------------------
-  def city
-    DATABASE.execute("SELECT city FROM products INNER JOIN locations ON Products.location_id = Locations.id WHERE title = 'book_to_edit'")
+  # BROKEN!!!!!!!!!!!!!!!
+  def self.city(title)
+    results = DATABASE.execute("SELECT * FROM products WHERE title = '#{title}'")
+    convert_to_objects(results)
   end
 
   #---------------------------------------------------------
   # Public: #genre
   # "Translates" between the category_id and the genre
   #---------------------------------------------------------
-  def genre
-    DATABASE.execute("SELECT genre FROM products INNER JOIN categories ON Products.category_id = Categories.id WHERE title = 'book_to_edit'")
+  # BROKEN!!!!!!!!!!!!!!!
+  def self.genre(genre)
+    results = DATABASE.execute("SELECT * FROM products WHERE genre = '#{genre}'")
+    convert_to_objects(results)
   end
 
   #---------------------------------------------------------
@@ -167,14 +173,14 @@ class Product
   #---------------------------------------------------------
   def self.where_title_is(title)
     results = DATABASE.execute("SELECT * FROM products WHERE title = '#{title}'")
-    
-    results_as_objects = []
-    
-    results.each do |r|     # r is a hash 
-      # this loops through and creates an array of objects
-      results_as_objects << self.new(r) 
-    end
-    z = results_as_objects[0]
+    convert_to_objects(results)
+    # results_as_objects = []
+    #
+    # results.each do |r|     # r is a hash
+    #   # this loops through and creates an array of objects
+    #   results_as_objects << self.new(r)
+    # end
+    # z = results_as_objects[0]
   end
 
   #---------------------------------------------------------
@@ -216,33 +222,17 @@ class Product
   end
 
   #---------------------------------------------------------
-  # Public: .all
-  # Displays all products
-  #---------------------------------------------------------
-  def self.all
-    array = DATABASE.execute("SELECT * FROM products")
-    products = []
-    array.each do |hash|
-      object = Product.new("id" => hash["id"], "isbn" => hash["isbn"], 
-      "title" => hash["title"], "author" => hash["author"], "description" => hash["description"], 
-      "cost" => hash["cost"], "price" => hash["price"], "quantity" => hash["quantity"], 
-      "category_id" => hash["category_id"], "location_id" => hash["location_id"])
-      products << object
-    end
-    products
-  end
-
-  #---------------------------------------------------------
   # Public: .location
   # Displays all products assigned to a specific location
   #
   # Parameters: city (e.g., 'Omaha NE')
   #---------------------------------------------------------
-  def self.location(city)
-    x = DATABASE.execute("SELECT id from locations WHERE city = '#{city}'")
-    x = x[0]
-    x = x["id"]
-    DATABASE.execute("SELECT * FROM products WHERE location_id = #{x}")
+  def self.location(id)
+    # x = DATABASE.execute("SELECT id from locations WHERE city = '#{city}'")
+    # x = x[0]
+    # x = x["id"]
+    
+    results = DATABASE.execute("SELECT * FROM products WHERE location_id = #{id}")
   end
 
   #---------------------------------------------------------
@@ -270,6 +260,16 @@ class Product
   #---------------------------------------------------------
   def self.delete(title)
       DATABASE.execute("DELETE FROM products WHERE title = '#{title}'")
+  end
+  
+  
+  def convert_to_objects # results is a hash of complete return information from DB
+    results_as_objects = []
+
+    results.each do |x|
+      results_as_objects << self.new(x)
+    end
+    results_as_objects
   end
 
 end

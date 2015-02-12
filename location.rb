@@ -16,6 +16,8 @@ class Location
   attr_reader :id
   attr_accessor :city
   
+  extend Class_Methods
+  
   def initialize(options)
     @id   = options["id"]
     @city = options["city"]
@@ -34,26 +36,6 @@ class Location
   def insert
     DATABASE.execute("INSERT INTO locations (city) VALUES ('#{@city}')")
     @id = DATABASE.last_insert_row_id     # will return the value of the row id
-  end
-  
-  #---------------------------------------------------------
-  # Public: .all
-  # Displays all locations
-  #
-  # Parameter: None
-  #
-  # Returns: None
-  #
-  # State Changes: None
-  #---------------------------------------------------------
-  def self.all
-    array = DATABASE.execute("SELECT * FROM locations")
-    locations = []
-    array.each do |hash|
-      object = Location.new("id" => hash["id"], "city" => hash["city"])
-      locations << object
-    end
-    locations
   end
 
   #---------------------------------------------------------

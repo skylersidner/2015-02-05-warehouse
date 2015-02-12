@@ -110,15 +110,7 @@ def self.where_id_is(record_id)
 end
 
 ########################################################
-# Refactoring the object creation code out since we're using it everywhere.
-# Need to figure out where it needs to go, but I think Product class?
 
-def convert_to_objects(results)
-  results_as_objects = []
 
-  results.each do |x|
-    results_as_objects << self.new(x)
-  end
-  results_as_objects
-end
+
   

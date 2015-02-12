@@ -16,6 +16,8 @@ class Category
   attr_reader :id
   attr_accessor :genre
   
+  extend Class_Methods
+  
   def initialize(options)
     @id = options["id"]
     @genre = options["genre"]
@@ -35,26 +37,6 @@ class Category
     
     DATABASE.execute("INSERT INTO categories (genre) VALUES ('#{@genre}')")
     @id = DATABASE.last_insert_row_id     # will return the value of the row id
-  end
-
-  #---------------------------------------------------------
-    # Public: .all
-    # Displays all genres
-    #
-    # Parameter: None
-    #
-    # Returns: None
-    #
-    # State Changes: None
-  #---------------------------------------------------------
-  def self.all
-    array = DATABASE.execute("SELECT * FROM categories")
-    categories = []
-    array.each do |hash|
-      object = Category.new("id" => hash["id"].to_i, "genre" => hash["genre"])
-      categories << object
-    end
-    categories
   end
 
   #---------------------------------------------------------
