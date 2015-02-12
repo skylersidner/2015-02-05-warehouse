@@ -29,6 +29,22 @@ get "/l_index" do
   erb :"locations/l_index"
 end
 
+get "/l_new" do
+  erb :"locations/l_new"
+end
+
+get "/l_confirm" do
+  @city = params["city"]
+  erb :"locations/l_confirm"
+end
+
+get "/l_create" do
+  @l = Location.new(params)
+  @l.insert
+  @all = [@l]
+  erb :"locations/l_create"
+end
+
 
 get "/c_index" do
   @all = Category.all
