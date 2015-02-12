@@ -48,10 +48,13 @@ class Category
     # State Changes: None
   #---------------------------------------------------------
   def self.all
-    x = DATABASE.execute("SELECT * FROM categories")
-    x.each do |x|
-        puts "#{x[0]}: #{x[1]}"
-      end
+    array = DATABASE.execute("SELECT * FROM categories")
+    categories = []
+    array.each do |hash|
+      object = Category.new("id" => hash["id"].to_i, "genre" => hash["genre"])
+      categories << object
+    end
+    categories
   end
 
   #---------------------------------------------------------

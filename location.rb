@@ -47,10 +47,13 @@ class Location
   # State Changes: None
   #---------------------------------------------------------
   def self.all
-    x = DATABASE.execute("SELECT * FROM locations")
-    x.each do |x|
-        puts "#{x[0]}: #{x[1]}"
+    array = DATABASE.execute("SELECT * FROM locations")
+    locations = []
+    array.each do |hash|
+      object = Location.new("id" => hash["id"], "city" => hash["city"])
+      locations << object
     end
+    locations
   end
 
   #---------------------------------------------------------

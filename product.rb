@@ -31,6 +31,7 @@ class Product
   attr_accessor :isbn, :title, :author, :description, :cost, :price, :quantity, :category_id, :location_id
 
   def initialize(options)
+    @id           = options["id"]
     @isbn         = options["isbn"]
     @title        = options["title"]
     @author       = options["author"]
@@ -110,28 +111,51 @@ class Product
   # Provides a user-friendly display for products
   #---------------------------------------------------------
   def display
-   attributes = []
-   query_components_array = []
+    attributes = []
+    query_components_array = []
 
-   instance_variables.each do |i|
-     attributes << i.to_s.delete("@")
-   end
+    instance_variables.each do |i|
+      attributes << i.to_s.delete("@")
+    end
 
-   attributes.each do |a|
-     value = self.send(a)
-     if value.is_a?(Float)
-       front_spacer = " " * (12 - a.length)
-       back_spacer = " " * (49 - ("#{self.send(a)}".length))
-       puts "#{a}:" + "#{front_spacer}" + "#{back_spacer}" + "$#{self.send(a)}"
-     else
-       front_spacer = " " * (12 - a.length)
-       back_spacer = " " * (50 - ("#{self.send(a)}".length))
-       puts "#{a}:" + "#{front_spacer}" + "#{back_spacer}" + "#{self.send(a)}"
-     end
-   end
-   puts "=" * 63
-   return
+    attributes.each do |a|
+      value = self.send(a)
+      if value.is_a?(Float)
+        front_spacer = " " * (12 - a.length)
+        back_spacer = " " * (49 - ("#{self.send(a)}".length))
+        puts "#{a}:" + "#{front_spacer}" + "#{back_spacer}" + "$#{self.send(a)}"
+      elsif a == "category_id"
+        x = translate_id("genre")
+        
+        x = DATABASE.execute("SELECT genre FROM categories WHERE id = '#{self.send(a)}'")
+        x = x[0]
+        x = x["genre"]
+        
+        front_spacer = " " * (12 - a.length)
+        back_spacer = " " * (50 - (("#{x}".length) + ("#{self.send(a)}".length + 2)))
+        puts "#{a}:" + "#{front_spacer}" + "#{back_spacer}" + "#{self.send(a)}" + "(#{x})"
+      
+      elsif a == "location_id"
+        x = DATABASE.execute("SELECT city FROM locations WHERE id = '#{self.send(a)}'")
+        x = x[0]
+        x = x["city"]
+        front_spacer = " " * (12 - a.length)
+        back_spacer = " " * (50 - (("#{x}".length) + ("#{self.send(a)}".length + 2)))
+        puts "#{a}:" + "#{front_spacer}" + "#{back_spacer}" + "#{self.send(a)}" + "(#{x})"
+      else
+        front_spacer = " " * (12 - a.length)
+        back_spacer = " " * (50 - ("#{self.send(a)}".length))
+        puts "#{a}:" + "#{front_spacer}" + "#{back_spacer}" + "#{self.send(a)}"
+      end
+    end
+    puts "=" * 63
+    return
   end
+  
+  def translate_id(args)
+    
+  end
+
 
   #---------------------------------------------------------
     # Public: .where_title_is
@@ -196,10 +220,16 @@ class Product
   # Displays all products
   #---------------------------------------------------------
   def self.all
-    x = DATABASE.execute("SELECT * FROM products")
-    x.each do |x|
-        puts "#{x[0]}: #{x[2]} by #{x[3]}"
+    array = DATABASE.execute("SELECT * FROM products")
+    products = []
+    array.each do |hash|
+      object = Product.new("id" => hash["id"], "isbn" => hash["isbn"], 
+      "title" => hash["title"], "author" => hash["author"], "description" => hash["description"], 
+      "cost" => hash["cost"], "price" => hash["price"], "quantity" => hash["quantity"], 
+      "category_id" => hash["category_id"], "location_id" => hash["location_id"])
+      products << object
     end
+    products
   end
 
   #---------------------------------------------------------

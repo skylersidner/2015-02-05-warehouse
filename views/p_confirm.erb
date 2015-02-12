@@ -1,0 +1,32 @@
+<h3>Product Creation</h3>
+
+
+<p>Please verify that this is correct:</p>
+
+<div class="form">
+  <form action="/p_create">
+     <p>
+     <label for="isbn">ISBN#: <%= @isbn %></label> 
+     <input type="hidden" name="isbn" value="<%= @isbn %>"><br>
+     <label for="title">Title: <%= @title %></label> 
+     <input type="hidden" name="title" value="<%= @title %>"><br>
+     <label for="author">Author: <%= @author %></label> 
+     <input type="hidden" name="author" value="<%= @author %>"><br>
+     <label for="description">Description: <%= @description %></label> 
+     <input type="hidden" name="description" value="<%= @description %>"><br>
+     <label for="cost">Cost: <%= @cost %></label> 
+     <input type="hidden" name="cost" value="<%= @cost %>"><br>
+     <label for="price">Price: <%= @price %></label> 
+     <input type="hidden" name="price" value="<%= @price %>"><br>
+     <label for="quantity">Quantity: <%= @quantity %></label> 
+     <input type="hidden" name="quantity" value="<%= @quantity %>"><br>
+     <label for="category_id">Category ID: <%= @category_id %></label> 
+     <input type="hidden" name="category_id" value="<%= @category_id %>"><br>
+     <label for="location_id">Location ID: <%= @location_id %></label> 
+     <input type="hidden" name="location_id" value="<%= @location_id %>"><br>
+     <input type="submit" value="Confirm">
+     
+     
+     </p>
+  </form>
+</div>

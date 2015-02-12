@@ -14,7 +14,7 @@ def display_attr
       back_spacer = " " * (49 - ("#{self.send(a)}".length))
       puts "#{a}:" + "#{front_spacer}" + "#{back_spacer}" + "$#{self.send(a)}"
     elsif a == "category_id"
-      x = DATABASE.execute("SELECT genre from categories WHERE id = '#{self.send(a)}'")
+      x = DATABASE.execute("SELECT genre FROM categories WHERE id = '#{self.send(a)}'")
       x = x[0]
       x = x["genre"]
       front_spacer = " " * (12 - a.length)
@@ -22,7 +22,7 @@ def display_attr
       puts "#{a}:" + "#{front_spacer}" + "#{back_spacer}" + "#{self.send(a)}" + "(#{x})"
       
     elsif a == "location_id"
-      x = DATABASE.execute("SELECT city from locations WHERE id = '#{self.send(a)}'")
+      x = DATABASE.execute("SELECT city FROM locations WHERE id = '#{self.send(a)}'")
       x = x[0]
       x = x["city"]
       front_spacer = " " * (12 - a.length)
