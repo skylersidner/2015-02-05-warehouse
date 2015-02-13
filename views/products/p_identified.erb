@@ -1,4 +1,4 @@
-<h3>Product Display</h3>
+<h3>Product Search</h3>
 
 <% @all.each do |x| %>
 <p>ID: <%= x.id %> | ISBN#: <%= x.isbn %></p>
@@ -8,3 +8,6 @@
 <p>Category: <%= x.category_id %> | Location: <%= x.location_id %></p>
 <% end %>
 
+<p>What would you like to do?</p>
+<p><a href="/p_edit">Edit this product's details</a></p>
+<p><a href="/p_delete">Delect this product from the database</a></p>
