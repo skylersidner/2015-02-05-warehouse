@@ -127,23 +127,18 @@ get "/p_results" do
   erb :"products/p_results"
 end
 
-before "/*" do
-  if params[:splat] == "p_identified" || params[:splat] == "p_edit" || params[:splat] == "p_delete"
-    binding.pry
-    @all = Product.search("id", params["id"])
-    erb :"/products/params[:splat]"
-  end
-end
-
 get "/p_identified" do
+  @all = Product.search("id", params["id"])
   erb :"/products/p_identified"
 end
 
 get "/p_edit" do
+  @all = Product.search("id", params["id"])
   erb :"/products/p_edit"
 end
 
 get "/p_delete" do
+  @all = Product.search("id", params["id"])
   erb :"/products/p_delete"
 end
 

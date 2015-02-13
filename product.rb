@@ -139,8 +139,13 @@ class Product
   end
 
   def self.search(field_name, choice)
-    results = DATABASE.execute("SELECT * FROM products WHERE #{field_name}='#{choice}'")
-    results_as_objects = []
+    binding.pry
+    if choice.is_a?(String)
+      results = DATABASE.execute("SELECT * FROM products WHERE #{field_name}='#{choice}'")
+    else
+      results = DATABASE.execute("SELECT * FROM products WHERE #{field_name}=#{choice}")
+    end
+      results_as_objects = []
 
     results.each do |x|     # x is a hash
       # this loops through and creates an array of objects

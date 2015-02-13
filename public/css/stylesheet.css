@@ -1,4 +1,4 @@
-h1 {
+h1, h3 {
   font-family: Times, serif;
   font-size: 24px;
   text-decoration: overline;
@@ -6,8 +6,10 @@ h1 {
   text-decoration-color: #FFFFFF;
 }
 
+
+
 a:link {
-  color: #996633;
+  color: #FFFFFF;
 }
 
 a:visited {
@@ -15,22 +17,22 @@ a:visited {
 }
 
 a:hover {
-  color: #FFFFFF;
+  color: #000000;
 }
 
 .nav_menu {
   font-weight: bold;
-  background-color: #996600;
+  background-color: #CC9966;
   border: 2px solid #FFFFFF;
-  width: fit-content;
-  position: fixed;
-  right: 2%;
-  top: 2%;
+  width: 15%;
+  position: absolute;
+  right: 5%;
+  top: 5%;
 }
 
 body {
   margin: 2%;
-  background: #CC9966;
+  background: #996600;
 }
 
 p {
@@ -38,6 +40,9 @@ p {
 }
 
 .list_display {
-  background-color: #996600;
+  background-color: #CC9966;
   border: 2px solid #FFFFFF;
+  width: 50%;
+  padding: 10px;
+  margin: 4px;
 }
