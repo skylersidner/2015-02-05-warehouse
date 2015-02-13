@@ -77,6 +77,7 @@ get "/p_all" do
   erb :"displays/p_display"
 end
 
+
 get "/p_new" do
   erb :"products/p_new"
 end
@@ -101,21 +102,40 @@ get "/p_create" do
   erb :"products/p_create"
 end
 
-get "/p_location" do
-  @all = Product.city
-  binding.pry
-  erb :"displays/p_display"
-end
-
-get "/p_category" do
-  @all = Product.genre
-  erb :"displays/p_display"
-end
 
 get "/p_search" do
   erb :"products/p_search"
 end
 
+get "/p_narrow" do
+  results = Product.where_field_is(params["search"])
+  
+  @results_array = []
+  results.each do |hash|
+    @results_array << hash[params["search"]]
+  end
+  @results_array.uniq!
+  @results_array.sort!
+  @search = params["search"]
+  erb :"products/p_narrow"
+end
+
+get "/p_results" do
+  @all = Product.search(params["search"], params["choice"])
+  @search = params["search"]
+  @choice = params["choice"]
+  erb :"products/p_results"
+end
+
+get "/p_edit" do
+  @object = Product.search("id", params["id"])
+  erb :"/products/p_edit"
+end
+
+get "/p_delete" do
+  
+  erb :"/products/p_edit"
+end
 
 
 #binding.pry

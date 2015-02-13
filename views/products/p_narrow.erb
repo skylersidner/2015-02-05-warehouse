@@ -1,0 +1,15 @@
+<h3>Product Search</h3>
+
+
+<p>Which <%= @search.upcase %> would you like?</p>
+
+
+<form action="/p_results">
+  <select name="choice">
+  <% @results_array.each do |x| %>
+    <option value="<%= x %>"><%= x %></option>
+  <% end %>
+  </select>
+  <input type="hidden" name="search" value="<%= @search %>">
+  <input type="submit">
+</form>

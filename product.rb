@@ -92,30 +92,6 @@ class Product
       DATABASE.execute("UPDATE products SET #{q} WHERE title = '#{@title}'")
   end
 
-  #---------------------------------------------------------
-  # Public: #city
-  # "Translates" between the location_id and the actual name of the city
-  #---------------------------------------------------------
-  # BROKEN!!!!!!!!!!!!!!!
-  def self.city(title)
-    results = DATABASE.execute("SELECT * FROM products WHERE title = '#{title}'")
-    convert_to_objects(results)
-  end
-
-  #---------------------------------------------------------
-  # Public: #genre
-  # "Translates" between the category_id and the genre
-  #---------------------------------------------------------
-  # BROKEN!!!!!!!!!!!!!!!
-  def self.genre(genre)
-    results = DATABASE.execute("SELECT * FROM products WHERE genre = '#{genre}'")
-    convert_to_objects(results)
-  end
-
-  #---------------------------------------------------------
-  # Public: #display
-  # Provides a user-friendly display for products
-  #---------------------------------------------------------
   def display
     attributes = []
     query_components_array = []
@@ -158,103 +134,23 @@ class Product
     return
   end
 
-  #---------------------------------------------------------
-    # Public: .where_title_is
-    # Searches the Product class for a single title. 
-    #
-    # Parameter: title
-    #
-    # Returns: Single Product object with matching title (passed as argument)
-  #---------------------------------------------------------
-  def self.where_title_is(title)
-    results = DATABASE.execute("SELECT * FROM products WHERE title = '#{title}'")
+  def self.where_field_is(field)
+    results = DATABASE.execute("SELECT #{field} FROM products")
+  end
+
+  def self.search(field_name, choice)
+    results = DATABASE.execute("SELECT * FROM products WHERE #{field_name} = '#{choice}'")
     results_as_objects = []
 
-    results.each do |r|     # r is a hash
+    results.each do |x|     # x is a hash
       # this loops through and creates an array of objects
-      results_as_objects << self.new(r)
+      results_as_objects << self.new(x)
     end
-    results_as_objects[0]
+    results_as_objects
   end
 
-  #---------------------------------------------------------
-    # Public: .where_author_is
-    # Searches the Product class for a single author. 
-    #
-    # Parameter: author name
-    #
-    # Returns: Array of hashes of various products by a single author
-  #---------------------------------------------------------
-  def self.where_author_is(author)
-    results = DATABASE.execute("SELECT * FROM products WHERE author = '#{author}'")
-    results.each do |x|
-      puts "#{x[0]}: #{x[2]} by #{x[3]}   (Quantity in stock: #{7})"
-    end
-
-    results_as_objects = []
-
-    results.each do |r|     #
-      # this loops through an
-      results_as_objects << s
-    end
-    z = results_as_objects[0]
-  end
-
-  #---------------------------------------------------------
-    # Public: .where_id_is
-    # Searches the Product class for a single id. 
-    #
-    # Parameter: id
-    #
-    # Returns: Single Product object with matching id (passed as argument)
-  #---------------------------------------------------------
-  def self.where_id_is(record_id)
-    results = DATABASE.execute("SELECT * FROM products WHERE id =
-                               #{record_id}")
-    # record_details = results[0] # Hash of the record details.
-    # self.new(record_details)
-    self.new(results)
-  end
-
-  #---------------------------------------------------------
-  # Public: .location
-  # Displays all products assigned to a specific location
-  #
-  # Parameters: city (e.g., 'Omaha NE')
-  #---------------------------------------------------------
-  def self.location(id)
-    # x = DATABASE.execute("SELECT id from locations WHERE city = '#{city}'")
-    # x = x[0]
-    # x = x["id"]
-    
-    results = DATABASE.execute("SELECT * FROM products WHERE location_id = #{id}")
-  end
-
-  #---------------------------------------------------------
-  # Public: .category
-  # Displays all products assigned to a specific genre
-  #
-  # Parameters: genre name (e.g., 'thriller')
-  #---------------------------------------------------------
-  def self.category(genre)
-    x = DATABASE.execute("SELECT id from categories WHERE genre = '#{genre}'")
-    x = x[0]
-    x = x["id"]
-    DATABASE.execute("SELECT * FROM products WHERE category_id = #{x}")
-  end
-
-  #---------------------------------------------------------
-    # Public: .delete
-    # Deletes a single product 
-    #
-    # Parameter: title
-    #
-    # Returns: None
-    #
-    # State Changes: Deletes product
-  #---------------------------------------------------------
-  def self.delete(title)
-      DATABASE.execute("DELETE FROM products WHERE title = '#{title}'")
+  def self.delete(id)
+      DATABASE.execute("DELETE FROM products WHERE id = #{id}")
   end
 
 end

@@ -1,0 +1,22 @@
+<h3>Product Search</h3>
+
+<p><%= @search.upcase %>: <%= @choice %>
+<p>Which product would you like to edit?</p>
+
+<form action="/p_edit">
+  <select name="choice">
+  <% @all.each do |x| %>
+  <!-- <option value="<%= x.@search %>"><%= "#{x.@choice}" %></option> -->
+    <option value="id"><%= '#{x.id}' %></option>
+  <% end %>    
+  </select>
+  <input type="submit">
+</form>
+
+<% @all.each do |x| %>
+<p>ID: <%= "#{x.id}"%> | ISBN#: <%= "#{x.isbn}"%></p>
+<p>Title: <%= "#{x.title}" %> | Author: <%= "#{x.author}" %></p>
+<p>Description: <%= "#{x.description}" %></p>
+<p>Cost: $<%= "#{x.cost}" %> | Price: $<%= "#{x.price}" %> | Quantity: <%= "#{x.quantity}" %></p>
+<p>Category: <%= "#{x.category_id}" %> | Location: <%= "#{x.location_id}" %></p>
+<% end %>
