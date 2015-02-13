@@ -129,6 +129,7 @@ end
 
 before "/*" do
   if params[:splat] == "p_identified" || params[:splat] == "p_edit" || params[:splat] == "p_delete"
+    binding.pry
     @all = Product.search("id", params["id"])
     erb :"/products/params[:splat]"
   end

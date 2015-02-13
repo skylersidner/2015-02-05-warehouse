@@ -1,0 +1,43 @@
+h1 {
+  font-family: Times, serif;
+  font-size: 24px;
+  text-decoration: overline;
+  text-decoration-style: double;
+  text-decoration-color: #FFFFFF;
+}
+
+a:link {
+  color: #996633;
+}
+
+a:visited {
+  color: #663300;
+}
+
+a:hover {
+  color: #FFFFFF;
+}
+
+.nav_menu {
+  font-weight: bold;
+  background-color: #996600;
+  border: 2px solid #FFFFFF;
+  width: fit-content;
+  position: fixed;
+  right: 2%;
+  top: 2%;
+}
+
+body {
+  margin: 2%;
+  background: #CC9966;
+}
+
+p {
+  font-family: Courier, serif;
+}
+
+.list_display {
+  background-color: #996600;
+  border: 2px solid #FFFFFF;
+}
