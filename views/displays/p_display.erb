@@ -1,10 +1,12 @@
 <h3>Product Display</h3>
 
-<% @all.each do |x| %>
-<p>ID: <%= x.id %> | ISBN#: <%= x.isbn %></p>
-<p>Title: <%= x.title %> | Author: <%= x.author %></p>
-<p>Description: <%= x.description %></p>
-<p>Cost: $<%= x.cost %> | Price: $<%= x.price %> | Quantity: <%= x.quantity %></p>
-<p>Category: <%= x.category_id %> | Location: <%= x.location_id %></p>
-<% end %>
+<div class="product_display">
+  <% @all.each do |x| %>
+  <p>ID: <%= x.id %> | ISBN#: <%= x.isbn %></p>
+  <p>Title: <%= x.title %> | Author: <%= x.author %></p>
+  <p>Description: <%= x.description %></p>
+  <p>Cost: $<%= x.cost %> | Price: $<%= x.price %> | Quantity: <%= x.quantity %></p>
+  <p>Category: <%= x.category_id %> | Location: <%= x.location_id %></p>
+  <% end %>
+</div>
 

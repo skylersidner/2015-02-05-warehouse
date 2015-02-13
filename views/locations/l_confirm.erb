@@ -3,14 +3,13 @@
 
 <p>Please verify that this is correct:</p>
 
-<div class="form">
+<div class="confirm">
   <form action="l_create">
      <p>
      <label for="city">City: <%= @city %></label> 
      <input type="hidden" name="city" value="<%= @city %>"><br>
      <input type="submit" value="Confirm">
      <input type="button" name="Back" onclick="javascript:history.back()" value="Back">
-     
      </p>
   </form>
 </div>

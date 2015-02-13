@@ -6,15 +6,16 @@
   <!-- <option value="<%= x.@search %>"><%= x.@choice %></option> -->
 
 
-
-<form action="/p_identified">
-  <select name="id">
-  <% @all.each do |x| %>
-    <option value="id"><%= x.id %></option>
-  <% end %>    
-  </select>
-  <input type="submit">
-</form>
+<div class="form">
+  <form action="/p_identified">
+    <select name="id">
+    <% @all.each do |x| %>
+      <option value="id"><%= x.id %></option>
+    <% end %>    
+    </select>
+    <input type="submit">
+  </form>
+</div>
 
 <div class="product_display">
   <% @all.each do |x| %>
