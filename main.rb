@@ -112,6 +112,9 @@ get "/p_category" do
   erb :"displays/p_display"
 end
 
+get "/p_search" do
+  erb :"products/p_search"
+end
 
 
 

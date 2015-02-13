@@ -157,11 +157,6 @@ class Product
     puts "=" * 63
     return
   end
-  
-  def translate_id(args)
-    
-  end
-
 
   #---------------------------------------------------------
     # Public: .where_title_is
@@ -173,14 +168,13 @@ class Product
   #---------------------------------------------------------
   def self.where_title_is(title)
     results = DATABASE.execute("SELECT * FROM products WHERE title = '#{title}'")
-    convert_to_objects(results)
-    # results_as_objects = []
-    #
-    # results.each do |r|     # r is a hash
-    #   # this loops through and creates an array of objects
-    #   results_as_objects << self.new(r)
-    # end
-    # z = results_as_objects[0]
+    results_as_objects = []
+
+    results.each do |r|     # r is a hash
+      # this loops through and creates an array of objects
+      results_as_objects << self.new(r)
+    end
+    results_as_objects[0]
   end
 
   #---------------------------------------------------------
@@ -196,14 +190,14 @@ class Product
     results.each do |x|
       puts "#{x[0]}: #{x[2]} by #{x[3]}   (Quantity in stock: #{7})"
     end
-    #
-    # results_as_objects = []
-    #
-    # results.each do |r|     # r is a hash
-    #   # this loops through and creates an array of objects
-    #   results_as_objects << self.new(r)
-    # end
-    # z = results_as_objects[0]
+
+    results_as_objects = []
+
+    results.each do |r|     #
+      # this loops through an
+      results_as_objects << s
+    end
+    z = results_as_objects[0]
   end
 
   #---------------------------------------------------------
@@ -217,8 +211,9 @@ class Product
   def self.where_id_is(record_id)
     results = DATABASE.execute("SELECT * FROM products WHERE id =
                                #{record_id}")
-    record_details = results[0] # Hash of the record details.
-    z = self.new(record_details)
+    # record_details = results[0] # Hash of the record details.
+    # self.new(record_details)
+    self.new(results)
   end
 
   #---------------------------------------------------------
@@ -260,16 +255,6 @@ class Product
   #---------------------------------------------------------
   def self.delete(title)
       DATABASE.execute("DELETE FROM products WHERE title = '#{title}'")
-  end
-  
-  
-  def convert_to_objects # results is a hash of complete return information from DB
-    results_as_objects = []
-
-    results.each do |x|
-      results_as_objects << self.new(x)
-    end
-    results_as_objects
   end
 
 end
