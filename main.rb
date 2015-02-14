@@ -42,11 +42,11 @@ get "/l_confirm_create" do
   erb :"locations/l_confirm_create"
 end
 
-get "/l_create" do
+get "/l_create_confirmed" do
   @l = Location.new(params)
   @l.insert
   @all = [@l]
-  erb :"locations/l_create"
+  erb :"locations/l_create_confirmed"
 end
 
 
@@ -64,11 +64,11 @@ get "/c_confirm_create" do
   erb :"categories/c_confirm_create"
 end
 
-get "/c_create" do
+get "/c_create_confirmed" do
   @c = Category.new(params)
   @c.insert
   @all = [@c]
-  erb :"categories/c_create"
+  erb :"categories/c_create_confirmed"
 end
 
 
@@ -76,7 +76,6 @@ get "/p_all" do
   @all = Product.all("products")
   erb :"displays/p_display"
 end
-
 
 get "/p_new" do
   erb :"products/p_new"
@@ -88,11 +87,11 @@ get "/p_confirm_create" do
   erb :"products/p_confirm_create"
 end
 
-get "/p_create" do
+get "/p_create_confirmed" do
   @p = Product.new(params)
   @p.insert
   @all = [@p]
-  erb :"products/p_create"
+  erb :"products/p_create_confirmed"
 end
 
 
@@ -129,10 +128,12 @@ get "/p_identified" do
   end
 end
 
+
 get "/p_delete" do
   Product.delete(params["id"])
   erb :"/products/p_delete_confirmed"
 end
+
 
 get "/p_confirm_edit" do
   binding.pry
