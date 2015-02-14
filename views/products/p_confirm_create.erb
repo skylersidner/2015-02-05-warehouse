@@ -1,0 +1,30 @@
+<h3>Product Confirmation</h3>
+
+
+<p>Please verify that this is correct:</p>
+
+<div class="confirm">
+  <form action="p_create">
+     <p><label for="isbn">ISBN#: <%= @all[0].isbn %></label> 
+        <input type="hidden" name="isbn" value="<%= @all[0].isbn %>"><br>
+        <label for="title">Title: <%= @all[0].title %></label> 
+        <input type="hidden" name="title" value="<%= @all[0].title %>"><br>
+        <label for="author">Author: <%= @all[0].author %></label> 
+        <input type="hidden" name="author" value="<%= @all[0].author %>"><br>
+        <label for="description">Description: <%= @all[0].description %></label> 
+        <input type="hidden" name="description" value="<%= @all[0].description %>"><br>
+        <label for="cost">Cost: <%= @all[0].cost %></label> 
+        <input type="hidden" name="cost" value="<%= @all[0].cost %>"><br>
+        <label for="price">Price: <%= @all[0].price %></label> 
+        <input type="hidden" name="price" value="<%= @all[0].price %>"><br>
+        <label for="quantity">Quantity: <%= @all[0].quantity %></label> 
+        <input type="hidden" name="quantity" value="<%= @all[0].quantity %>"><br>
+        <label for="category_id">Category ID: <%= @all[0].category_id %></label> 
+        <input type="hidden" name="category_id" value="<%= @all[0].category_id %>"><br>
+        <label for="location_id">Location ID: <%= @all[0].location_id %></label> 
+        <input type="hidden" name="location_id" value="<%= @all[0].location_id %>"><br>
+        <input type="submit" value="Confirm">
+        <input type="button" name="Back" onclick="javascript:history.back()" value="Back">
+     </p>
+  </form>
+</div>

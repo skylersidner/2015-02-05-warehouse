@@ -37,9 +37,9 @@ get "/l_new" do
   erb :"locations/l_new"
 end
 
-get "/l_confirm" do
+get "/l_confirm_create" do
   @city = params["city"]
-  erb :"locations/l_confirm"
+  erb :"locations/l_confirm_create"
 end
 
 get "/l_create" do
@@ -59,9 +59,9 @@ get "/c_new" do
   erb :"categories/c_new"
 end
 
-get "/c_confirm" do
+get "/c_confirm_create" do
   @genre = params["genre"]
-  erb :"categories/c_confirm"
+  erb :"categories/c_confirm_create"
 end
 
 get "/c_create" do
@@ -82,17 +82,10 @@ get "/p_new" do
   erb :"products/p_new"
 end
 
-get "/p_confirm" do
-  @isbn         = params["isbn"]
-  @title        = params["title"]
-  @author       = params["author"]
-  @description  = params["description"]
-  @cost         = params["cost"]
-  @price        = params["price"]
-  @quantity     = params["quantity"]
-  @category_id  = params["category_id"]
-  @location_id  = params["location_id"]
-  erb :"products/p_confirm"
+get "/p_confirm_create" do
+  @all = []
+  @all << Product.new(params)
+  erb :"products/p_confirm_create"
 end
 
 get "/p_create" do
@@ -124,23 +117,35 @@ get "/p_results" do
   @all = Product.search(params["search"], params["choice"])
   @search = params["search"]
   @choice = params["choice"]
-  erb :"products/p_results"
+  erb :"/products/p_results"
 end
 
 get "/p_identified" do
   @all = Product.search("id", params["id"])
-  erb :"/products/p_identified"
-end
-
-get "/p_edit" do
-  @all = Product.search("id", params["id"])
-  erb :"/products/p_edit"
+  if params["e_d"] == "delete"
+    erb :"/products/p_confirm_delete"
+  else
+    erb :"/products/p_edit"
+  end
 end
 
 get "/p_delete" do
-  @all = Product.search("id", params["id"])
-  erb :"/products/p_delete"
+  Product.delete(params["id"])
+  erb :"/products/p_delete_confirmed"
 end
 
+get "/p_confirm_edit" do
+  binding.pry
+  @all_old = Product.search("id", params["id"])
+  @all = []
+  @all << Product.new(params)
+  erb :"/products/p_confirm_edit"
+end
+
+get "/p_edit_confirmed" do
+  @all = Product.new(params)
+  @all.save
+  erb :"/products/p_edit_confirmed"
+end
 
 #binding.pry

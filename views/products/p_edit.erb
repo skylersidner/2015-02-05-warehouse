@@ -3,28 +3,28 @@
 <p>Edit the product:</p>
 
 <div class="form">
-  <form action="p_confirm">
+  <form action="p_confirm_edit">
     <p>
-      ID#: <%= @object.id %>
-      <input type="hidden" name="location_id" value="<%= @location_id %>"><br>
+      ID#: <%= @all[0].id %>
+      <input type="hidden" name="id" value="<%= @all[0].id %>"><br>
       <label for="isbn">ISBN#: </label> 
-      <input type="text" name="isbn" value="<%= @object.isbn %>"><br>
+      <input type="text" name="isbn" value="<%= @all[0].isbn %>"><br>
       <label for="title">Title: </label> 
-      <input type="text" name="<%= @object.title %>"><br>
+      <input type="text" name="title" value="<%= @all[0].title %>"><br>
       <label for="author">Author: </label> 
-      <input type="text" name="<%= @object.author %>"><br>
+      <input type="text" name="author" value="<%= @all[0].author %>"><br>
       <label for="description">Description: </label> 
-      <input type="text" name="<%= @object.description %>"><br>
+      <input type="text" name="description" value="<%= @all[0].description %>"><br>
       <label for="cost">Cost: </label> 
-      <input type="text" name="<%= @object.cost %>"><br>
+      <input type="text" name="cost" value="<%= @all[0].cost %>"><br>
       <label for="price">Price: </label> 
-      <input type="text" name="<%= @object.price %>"><br>
+      <input type="text" name="price" value="<%= @all[0].price %>"><br>
       <label for="quantity">Quantity: </label> 
-      <input type="text" name="<%= @object.quantity %>"><br>
+      <input type="text" name="quantity" value="<%= @all[0].quantity %>"><br>
       <label for="category_id">Category ID: </label> 
-      <input type="text" name="<%= @object.category_id %>"><br>
+      <input type="text" name="category_id" value="<%= @all[0].category_id %>"><br>
       <label for="location_id">Location ID: </label> 
-      <input type="text" name="<%= @object.location_id %>"><br>
+      <input type="text" name="location_id" value="<%= @all[0].location_id %>"><br>
       <input type="submit" value="Submit">
     </p>
   </form>

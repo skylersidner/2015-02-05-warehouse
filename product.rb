@@ -139,7 +139,6 @@ class Product
   end
 
   def self.search(field_name, choice)
-    binding.pry
     if choice.is_a?(String)
       results = DATABASE.execute("SELECT * FROM products WHERE #{field_name}='#{choice}'")
     else

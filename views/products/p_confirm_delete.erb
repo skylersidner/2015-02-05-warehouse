@@ -1,4 +1,12 @@
-<h3>Product Search</h3>
+<h3>Product Delete</h3>
+
+<p>Are you sure you want to delete this?</p>
+<form action="/p_delete">
+  <input type="hidden" name="id" value="<%= @all[0].id %>">
+  <p><input type="checkbox" name="sure">Yes, I'm sure!</p>
+  <input type="submit">
+</form>
+
 
 <% @all.each do |x| %>
   <div class="list_display">
@@ -9,10 +17,3 @@
     <p>Category: <%= x.category_id %> | Location: <%= x.location_id %></p>
   </div>
 <% end %>
-<form>
-       <input type="hidden" name="genre" value="<%= @genre %>"><br>
-     </form>
-
-<p>What would you like to do?</p>
-<p><a href="/p_edit">Edit this product's details</a></p>
-<p><a href="/p_delete">Delect this product from the database</a></p>

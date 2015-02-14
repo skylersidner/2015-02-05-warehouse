@@ -1,7 +1,7 @@
 <h3>Product Search</h3>
 
 <p><%= @search.upcase %>: <%= @choice %>
-<p>Which product would you like to edit?</p>
+<p>Which product would you like?</p>
 
 
 
@@ -9,9 +9,12 @@
   <form action="/p_identified">
     <select name="id">
     <% @all.each do |x| %>
-      <option value="<%= x.id %>"><%= x.id %></option>
+      <p><option value="<%= x.id %>"><%= x.id %></option></p>
     <% end %>    
-    </select>
+    </select></br>
+    <input type="hidden" name="id" value="<%= @all[0].id %>">
+    <p><input type="radio" value="edit" name="e_d" checked>Edit</p>
+    <p><input type="radio" value="delete" name="e_d">Delete</p></br>
     <input type="submit">
   </form>
 </div>
