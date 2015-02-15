@@ -27,11 +27,11 @@ class Category
     # Public: #insert
     # Inserts new instantiation to the database
     #
-    # Parameter: None
+    # Parameters: None
     #
-    # Returns: None
+    # Returns: The id value of new record.
     #
-    # State Changes: None
+    # State Changes: Creates a new category in the database.
   #---------------------------------------------------------
   def insert 
     
@@ -45,7 +45,7 @@ class Category
     #
     # Parameter: location_id
     #
-    # Returns: None
+    # Returnss: None
     #
     # State Changes: Deletes genre
   #---------------------------------------------------------

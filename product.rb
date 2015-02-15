@@ -1,6 +1,6 @@
 #---------------------------------------------------------
 # Class: Product
-# Products and all the things they can do
+# For adding records to the products table and storing record data.
 #
 # Attributes:
 # @isbn         - Integer:  the book's identifier
@@ -16,15 +16,8 @@
 # Public Methods:
 # #insert
 # #save
-# #city
-# #genre
-# #display
-# .where_title_is  
-# .where_author_is
-# .where_id_is 
-# .all  
-# .location
-# .category 
+# .search
+# .delete
 #---------------------------------------------------------
 class Product
   attr_reader :id
@@ -49,11 +42,11 @@ class Product
   # Public: #insert
   # Inserts new instantiation to the database
   #
-  # Parameter: None
+  # Parameters: None
   #
-  # Returns: None
+  # Returns: The ID value of the new record.
   #
-  # State Changes: None
+  # State Changes: Creates a new product in the database.
   #---------------------------------------------------------
   def insert
     DATABASE.execute("INSERT INTO products (isbn, title, author, description, cost, price, quantity, category_id, location_id) VALUES ('#{@isbn}', '#{@title}', '#{@author}', '#{@description}', '#{@cost}', '#{@price}', '#{@quantity}', '#{category_id}', '#{location_id}')")
@@ -62,13 +55,13 @@ class Product
 
   #---------------------------------------------------------
   # Public: #save
-  # When changes are made to a Product object, this saves the changes to the database
+  # Saves product record information from an object to the database.
   #
-  # Parameter: None
+  # Parameters: None
   #
   # Returns: None
   #
-  # State Changes: None
+  # State Changes: Updates data in the database.
   #---------------------------------------------------------
   def save 
       attributes = []
@@ -92,52 +85,18 @@ class Product
       DATABASE.execute("UPDATE products SET #{q} WHERE title = '#{@title}'")
   end
 
-  def display
-    attributes = []
-    query_components_array = []
-
-    instance_variables.each do |i|
-      attributes << i.to_s.delete("@")
-    end
-
-    attributes.each do |a|
-      value = self.send(a)
-      if value.is_a?(Float)
-        front_spacer = " " * (12 - a.length)
-        back_spacer = " " * (49 - ("#{self.send(a)}".length))
-        puts "#{a}:" + "#{front_spacer}" + "#{back_spacer}" + "$#{self.send(a)}"
-      elsif a == "category_id"
-        x = translate_id("genre")
-        
-        x = DATABASE.execute("SELECT genre FROM categories WHERE id = '#{self.send(a)}'")
-        x = x[0]
-        x = x["genre"]
-        
-        front_spacer = " " * (12 - a.length)
-        back_spacer = " " * (50 - (("#{x}".length) + ("#{self.send(a)}".length + 2)))
-        puts "#{a}:" + "#{front_spacer}" + "#{back_spacer}" + "#{self.send(a)}" + "(#{x})"
-      
-      elsif a == "location_id"
-        x = DATABASE.execute("SELECT city FROM locations WHERE id = '#{self.send(a)}'")
-        x = x[0]
-        x = x["city"]
-        front_spacer = " " * (12 - a.length)
-        back_spacer = " " * (50 - (("#{x}".length) + ("#{self.send(a)}".length + 2)))
-        puts "#{a}:" + "#{front_spacer}" + "#{back_spacer}" + "#{self.send(a)}" + "(#{x})"
-      else
-        front_spacer = " " * (12 - a.length)
-        back_spacer = " " * (50 - ("#{self.send(a)}".length))
-        puts "#{a}:" + "#{front_spacer}" + "#{back_spacer}" + "#{self.send(a)}"
-      end
-    end
-    puts "=" * 63
-    return
-  end
-
-  def self.where_field_is(field)
-    results = DATABASE.execute("SELECT #{field} FROM products")
-  end
-
+  #---------------------------------------------------------
+  # Public: .search
+  # Searches the database for product records.
+  #
+  # Parameters:
+  # field_name  - String: The name of field in the database.
+  # choice      - String/Integer: The corresponding values for that field.
+  #
+  # Returns: An array of Product objects matching the search.
+  #
+  # State Changes: None
+  #---------------------------------------------------------
   def self.search(field_name, choice)
     if choice.is_a?(String)
       results = DATABASE.execute("SELECT * FROM products WHERE #{field_name}='#{choice}'")
@@ -153,6 +112,17 @@ class Product
     results_as_objects
   end
 
+  #---------------------------------------------------------
+  # Public: .delete
+  # Removes a product record from the database, based on its ID
+  #
+  # Parameter:
+  # id  - Integer: The ID of the product record to be removed.
+  #
+  # Returns: None
+  #
+  # State Changes: Removes the product record from the database.
+  #---------------------------------------------------------
   def self.delete(id)
       DATABASE.execute("DELETE FROM products WHERE id = #{id}")
   end

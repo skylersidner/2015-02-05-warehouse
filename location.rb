@@ -27,11 +27,11 @@ class Location
   # Public: #insert
   # Inserts new instantiation to the database
   #
-  # Parameter: None
+  # Parameters: None
   #
-  # Returns: None
+  # Returns: The id value of the new record.
   #
-  # State Changes: None
+  # State Changes: Creates a new record in the database.
   #---------------------------------------------------------
   def insert
     DATABASE.execute("INSERT INTO locations (city) VALUES ('#{@city}')")
@@ -42,11 +42,11 @@ class Location
   # Public: .delete
   # Deletes a single location if no products are assigned to it
   #
-  # Parameter: location_id
+  # Parameters: location_id
   #
   # Returns: None
   #
-  # State Changes: Deletes location
+  # State Changes: Deletes a location in the database.
   #---------------------------------------------------------
   def self.delete(id_to_remove)
     x = DATABASE.execute("SELECT location_id FROM products WHERE location_id = #{id_to_remove}")
