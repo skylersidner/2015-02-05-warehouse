@@ -1,23 +1,17 @@
 require 'minitest/autorun'
 require 'sqlite3'
 require 'pry'
-DATABASE = SQLite3::Database.new("data_for_testing.db")
+DATABASE = SQLite3::Database.new("../database/data_for_testing.db")
 # require_relative 'db_setup.rb'
 
-require_relative "class_module.rb"
-require_relative "category.rb"
-require_relative "location.rb"
-require_relative "product.rb"
+require_relative "../modules/class_module.rb"
+require_relative "../models/category.rb"
+require_relative "../models/location.rb"
+require_relative "../models/product.rb"
 
 class WarehouseTest < Minitest::Test
 
-  # def setup
-  #   DATABASE.execute("DELETE FROM categories")
-  #   DATABASE.execute("DELETE FROM locations")
-  #   DATABASE.execute("DELETE FROM products")
-  # end
-
-  # assert equal(expected, actual)
+  # assertion (expected, actual)
 
   def test_product_creation
     new_product = Product.new({'isbn' => 15679, 'title' => 'A Good Book', 'author' => 'Me', 'description' => 'trade paperback', 'cost' => 1.99, 'price' => 5.99, 'quantity' => 10, 'category_id' => 3, 'location_id' => 2})
@@ -59,16 +53,6 @@ class WarehouseTest < Minitest::Test
     x = new_category.insert
     array = Category.delete(x)
     assert_equal(0, array.length)
-  end
-
-  def test_location_deletion_with_existing_products
-    location = Location.delete(3)
-    assert_empty([], location)
-  end
-
-  def test_category_deletion_with_existing_products
-    category = Category.delete(1)
-    assert_empty([], category)
   end
 
   # BROKEN - I think this is a problem with testing module based methods.

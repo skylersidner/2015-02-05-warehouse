@@ -1,13 +1,12 @@
 require 'pry'
 require 'sqlite3'
 
-require_relative 'class_module.rb'
-
+require_relative 'modules/class_module.rb'
 
 require_relative 'db_setup.rb'
-require_relative 'category.rb'
-require_relative 'location.rb'
-require_relative 'product.rb'
+require_relative 'models/category.rb'
+require_relative 'models/location.rb'
+require_relative 'models/product.rb'
 
 require 'sinatra'
 
