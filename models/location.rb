@@ -56,5 +56,6 @@ class Location
       DATABASE.execute("SELECT * FROM products WHERE location_id = #{id_to_remove}")
     end
   end
+    
 
 end

@@ -18,6 +18,7 @@
 # #save
 # .search
 # .delete
+# .where_field_is
 #---------------------------------------------------------
 class Product
   attr_reader :id
@@ -126,5 +127,21 @@ class Product
   def self.delete(id)
       DATABASE.execute("DELETE FROM products WHERE id = #{id}")
   end
-
+  
+  #---------------------------------------------------------
+  # Public: .where_field_is
+  # Used to populate a dropdown of options for Web UI (p_narrow.erb).
+  #
+  # Parameter:
+  # field  - String: The field to be searched.
+  #
+  # Returns: An array of hash search results.
+  #
+  # State Changes: None
+  #---------------------------------------------------------
+  def self.where_field_is(field)
+    results = DATABASE.execute("SELECT #{field} FROM products")
+    results
+  end
+      
 end

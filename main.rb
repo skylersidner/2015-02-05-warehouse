@@ -29,7 +29,7 @@ end
 
 get "/l_all" do
   @all = Location.all("locations")
-  erb :"displays/l_display"
+  erb :"locations/l_display"
 end
 
 get "/l_new" do
@@ -51,7 +51,7 @@ end
 
 get "/c_all" do
   @all = Category.all("categories")
-  erb :"displays/c_display"
+  erb :"categories/c_display"
 end
 
 get "/c_new" do
@@ -73,7 +73,7 @@ end
 
 get "/p_all" do
   @all = Product.all("products")
-  erb :"displays/p_display"
+  erb :"products/p_display"
 end
 
 get "/p_new" do
@@ -105,6 +105,7 @@ get "/p_narrow" do
   results.each do |hash|
     @results_array << hash[params["search"]]
   end
+  
   @results_array.uniq!
   @results_array.sort!
   @search = params["search"]
