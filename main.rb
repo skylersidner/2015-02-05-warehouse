@@ -148,5 +148,3 @@ get "/p_edit_confirmed" do
   @all.save
   erb :"/products/p_edit_confirmed"
 end
-
-#binding.pry

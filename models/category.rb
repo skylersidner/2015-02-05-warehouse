@@ -12,7 +12,7 @@
 # .delete 
 #---------------------------------------------------------
 class Category
-  # include Driver
+
   attr_reader :id
   attr_accessor :genre
   
